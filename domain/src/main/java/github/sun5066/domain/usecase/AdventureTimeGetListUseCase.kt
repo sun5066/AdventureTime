@@ -10,5 +10,4 @@ class AdventureTimeGetListUseCase(private val adventureTimeService: AdventureTim
     operator fun invoke() = flow {
         emit(adventureTimeService.getCharacterInfoList())
     }.flowOn(Dispatchers.IO)
-
 }

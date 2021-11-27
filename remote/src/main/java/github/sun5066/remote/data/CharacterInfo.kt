@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 data class CharacterInfo(
     @field:Json(name = "id") val id: Int = 0,
     @field:Json(name = "slug") val slug: String = "",
-    @field:Json(name = "name") val name: String = "",
+    @field:Json(name = "displayName") val displayName: String = "",
     @field:Json(name = "fullName") val fullName: String = "",
     @field:Json(name = "sex") val sex: String = "",
     @field:Json(name = "quotes") val quotes: List<String> = listOf(""),
