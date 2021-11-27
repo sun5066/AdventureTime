@@ -14,12 +14,12 @@ import github.sun5066.adventuretime.ui.MainViewModel
 
 @ExperimentalFoundationApi
 @Composable
-fun CharacterList(mainViewModel: MainViewModel = viewModel()) {
+fun CharacterGridList(mainViewModel: MainViewModel = viewModel()) {
     val state by mainViewModel.list.collectAsState()
 
     LazyVerticalGrid(cells = GridCells.Fixed(2), contentPadding = PaddingValues(10.dp)) {
         items(items = state, itemContent = { characterInfo ->
-            CharacterGridView(characterInfo.sprite, characterInfo.displayName)
+            CharacterCardView(characterInfo.sprite, characterInfo.displayName)
         })
     }
 }

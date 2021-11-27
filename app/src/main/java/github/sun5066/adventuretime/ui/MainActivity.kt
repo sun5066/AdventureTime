@@ -7,7 +7,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import github.sun5066.adventuretime.R
 import github.sun5066.adventuretime.ui.theme.AdventureTimeTheme
-import github.sun5066.adventuretime.ui.wiget.CharacterList
+import github.sun5066.adventuretime.ui.wiget.CharacterGridList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     })
                 }) {
                     Surface(color = MaterialTheme.colors.background) {
-                        CharacterList(viewModel)
+                        CharacterGridList(viewModel)
                     }
                 }
             }

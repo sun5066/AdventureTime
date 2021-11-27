@@ -15,10 +15,12 @@ import coil.compose.rememberImagePainter
 import github.sun5066.adventuretime.R
 
 @Composable
-fun CharacterGridView(sprite: String, name: String) {
-    Card(modifier = Modifier
-        .padding(5.dp)
-        .fillMaxSize()) {
+fun CharacterCardView(sprite: String, name: String) {
+    Card(
+        modifier = Modifier
+            .padding(5.dp)
+            .fillMaxSize()
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
