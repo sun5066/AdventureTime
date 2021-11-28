@@ -11,15 +11,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import github.sun5066.adventuretime.ui.MainViewModel
+import github.sun5066.remote.data.CharacterInfo
 
 @ExperimentalFoundationApi
 @Composable
-fun CharacterGridList(mainViewModel: MainViewModel = viewModel()) {
+fun CharacterGridList(
+    mainViewModel: MainViewModel = viewModel(),
+    showDetailProfileView: (CharacterInfo) -> Unit
+) {
     val state by mainViewModel.list.collectAsState()
 
     LazyVerticalGrid(cells = GridCells.Fixed(2), contentPadding = PaddingValues(10.dp)) {
         items(items = state, itemContent = { characterInfo ->
-            CharacterCardView(characterInfo.sprite, characterInfo.displayName)
+            CharacterCardView(characterInfo.sprite, characterInfo.displayName) {
+                showDetailProfileView.invoke(characterInfo)
+            }
         })
     }
 }

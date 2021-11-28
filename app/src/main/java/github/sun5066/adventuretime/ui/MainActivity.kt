@@ -1,11 +1,13 @@
 package github.sun5066.adventuretime.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import github.sun5066.adventuretime.R
+import github.sun5066.adventuretime.ui.detail.DetailProfileActivity
 import github.sun5066.adventuretime.ui.theme.AdventureTimeTheme
 import github.sun5066.adventuretime.ui.wiget.CharacterGridList
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +28,12 @@ class MainActivity : ComponentActivity() {
                     })
                 }) {
                     Surface(color = MaterialTheme.colors.background) {
-                        CharacterGridList(viewModel)
+                        CharacterGridList(viewModel) { characterInfo ->
+                            val data = Intent(this, DetailProfileActivity::class.java).apply {
+                                putExtra("characterInfo", characterInfo)
+                            }
+                            startActivity(data)
+                        }
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package github.sun5066.adventuretime.ui.wiget
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -15,11 +16,12 @@ import coil.compose.rememberImagePainter
 import github.sun5066.adventuretime.R
 
 @Composable
-fun CharacterCardView(sprite: String, name: String) {
+fun CharacterCardView(sprite: String, name: String, showDetailProfileView: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(5.dp)
             .fillMaxSize()
+            .clickable { showDetailProfileView() }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
