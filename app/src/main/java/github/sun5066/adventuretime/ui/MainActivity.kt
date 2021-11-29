@@ -19,6 +19,8 @@ class MainActivity : ComponentActivity() {
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.fetchData()
+
         setContent {
             AdventureTimeTheme {
                 // A surface container using the 'background' color from the theme
