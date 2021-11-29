@@ -10,12 +10,12 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import github.sun5066.adventuretime.R
 import github.sun5066.adventuretime.ui.MainViewModel
 import github.sun5066.adventuretime.ui.ResponseState
@@ -29,14 +29,26 @@ fun CharacterGridList(
     showDetailProfileView: (CharacterInfo) -> Unit
 ) {
     val state by mainViewModel.state.collectAsState()
+    var refreshState by remember { mutableStateOf(false) }
 
     when(state) {
         is ResponseState.UnInitialize -> Unit
-        is ResponseState.Loading -> ProgressLoading()
-        is ResponseState.Success -> CardGrid(
-            list = (state as ResponseState.Success).list,
-            showDetailProfileView = showDetailProfileView
-        )
+        is ResponseState.Loading -> {
+            refreshState = false
+            ProgressLoading()
+        }
+        is ResponseState.Success -> {
+            LaunchedEffect(refreshState) {
+                if (refreshState)
+                    mainViewModel.fetchData()
+            }
+            SwipeRefresh(state = rememberSwipeRefreshState(isRefreshing = refreshState), onRefresh = { refreshState = true }) {
+                CardGrid(
+                    list = (state as ResponseState.Success).list,
+                    showDetailProfileView = showDetailProfileView
+                )
+            }
+        }
         is ResponseState.Error -> ToastUtil.showToast(
             R.string.toast_network_error,
             Toast.LENGTH_LONG
