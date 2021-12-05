@@ -10,4 +10,10 @@
  - Koin(Service Locator)
  - Retrofit2/OkHttp3(네트워크 통신)
 
+
+## RESTful API 제공
+ - [Sally-AdventureTimeAPI](https://github.com/sally/adventure-time-api)
+
+
+## 미리보기
 ![미리보기](preview/preview.gif)
