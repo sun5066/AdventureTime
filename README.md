@@ -3,13 +3,15 @@
 ## 개발환경
  - M1 Mac
  - targetSDK 31
- - Android Studio Article Fox
+ - Android Studio Article Fox M1
+
 
 ## 사용기술
  - JetPack
     - compose
     - compose-navigation
-    - lifecycle
+    - lifeCycle
+    - viewModel
  - Coroutine/Flow(비동기 작업)
  - Coil(이미지 로드)
  - Koin(Service Locator)
