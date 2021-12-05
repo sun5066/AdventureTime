@@ -1,5 +1,10 @@
 # AdventureTime
 
+## 개발환경
+ - M1 Mac
+ - targetSDK 31
+ - Android Studio Article Fox
+
 ## 사용기술
  - JetPack
     - compose
