@@ -1,5 +1,10 @@
 # AdventureTime
 
+
+## 참고사항
+ - [JayDev-GithubBrowserMVVM](https://github.com/Jeonguk-JayDev/GithubBrowserMVVM)
+
+
 ## 개발환경
  - M1 Mac
  - targetSDK 31
