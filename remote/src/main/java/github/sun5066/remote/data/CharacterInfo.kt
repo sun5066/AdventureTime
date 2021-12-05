@@ -13,6 +13,15 @@ data class CharacterInfo(
     @field:Json(name = "displayName") val displayName: String = "",
     @field:Json(name = "fullName") val fullName: String = "",
     @field:Json(name = "sex") val sex: String = "",
-    @field:Json(name = "quotes") val quotes: List<String> = listOf(""),
+    @field:Json(name = "quotes") private val quotes: List<String> = listOf(""),
     @field:Json(name = "sprite") val sprite: String = ""
-): Parcelable
+): Parcelable {
+    val quote: String get() {
+        var str = ""
+        quotes.forEach {
+            str += it
+            str += "\n"
+        }
+        return str
+    }
+}

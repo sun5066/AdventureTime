@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import github.sun5066.adventuretime.R
@@ -26,7 +27,7 @@ import github.sun5066.remote.data.CharacterInfo
 @Composable
 fun CharacterGridList(
     mainViewModel: MainViewModel,
-    showDetailProfileView: (CharacterInfo) -> Unit
+    navController: NavHostController
 ) {
     val state by mainViewModel.state.collectAsState()
     var refreshState by remember { mutableStateOf(false) }
@@ -45,7 +46,7 @@ fun CharacterGridList(
             SwipeRefresh(state = rememberSwipeRefreshState(isRefreshing = refreshState), onRefresh = { refreshState = true }) {
                 CardGrid(
                     list = (state as ResponseState.Success).list,
-                    showDetailProfileView = showDetailProfileView
+                    navController = navController
                 )
             }
         }
@@ -68,11 +69,19 @@ private fun ProgressLoading() {
 
 @ExperimentalFoundationApi
 @Composable
-private fun CardGrid(list: List<CharacterInfo>, showDetailProfileView: (CharacterInfo) -> Unit) {
+private fun CardGrid(list: List<CharacterInfo>, navController: NavHostController) {
+    var clickedState by remember { mutableStateOf(true) }
+
     LazyVerticalGrid(cells = GridCells.Fixed(2), contentPadding = PaddingValues(10.dp)) {
         items(items = list, itemContent = { characterInfo ->
-            CharacterCardView(characterInfo.sprite, characterInfo.displayName) {
-                showDetailProfileView.invoke(characterInfo)
+            CharacterCardView(characterInfo) {
+                if (clickedState) {
+                    navController.navigate("detail/${characterInfo.id}") {
+                        launchSingleTop = true
+                    }
+
+                    clickedState = !clickedState
+                }
             }
         })
     }

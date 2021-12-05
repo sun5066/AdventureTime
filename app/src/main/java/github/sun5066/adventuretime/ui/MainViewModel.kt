@@ -14,12 +14,18 @@ class MainViewModel(
     private val _state = MutableStateFlow<ResponseState>(ResponseState.UnInitialize)
     val state get() = _state.asStateFlow()
 
+    private val list get() = state.value.takeIf { it is ResponseState.Success }?.run {
+        (this as ResponseState.Success).list
+    }
+
     fun fetchData() = viewModelScope.launch {
         adventureTimeGetListUseCase()
             .onStart { _state.value = ResponseState.Loading }
             .catch { error -> _state.value = ResponseState.Error(error) }
             .collect { list -> _state.value = ResponseState.Success(list) }
     }
+
+    fun findById(id: Int) = list?.find { it.id == id }
 }
 
 sealed class ResponseState {

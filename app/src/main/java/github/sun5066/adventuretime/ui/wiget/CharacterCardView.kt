@@ -1,5 +1,6 @@
 package github.sun5066.adventuretime.ui.wiget
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,21 +15,23 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import github.sun5066.adventuretime.R
+import github.sun5066.remote.data.CharacterInfo
 
+@ExperimentalFoundationApi
 @Composable
-fun CharacterCardView(sprite: String, name: String, showDetailProfileView: () -> Unit) {
+fun CharacterCardView(characterInfo: CharacterInfo, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(5.dp)
             .fillMaxSize()
-            .clickable { showDetailProfileView() }
+            .clickable { onClick() }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
             val painter = rememberImagePainter(
-                data = sprite,
+                data = characterInfo.sprite,
                 builder = {
                     crossfade(true)
                     crossfade(100)
@@ -46,7 +49,7 @@ fun CharacterCardView(sprite: String, name: String, showDetailProfileView: () ->
             )
 
             Text(
-                text = name,
+                text = characterInfo.displayName,
                 Modifier.width(150.dp),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
